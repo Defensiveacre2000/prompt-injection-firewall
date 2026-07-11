@@ -4,15 +4,19 @@ app.py -- FastAPI wrapper around the rules.py detection engine.
 Exposes POST /scan and GET /health per SKILL.md's contract.
 """
 
+from pathlib import Path
 from typing import Optional
 
 from fastapi import FastAPI
+from fastapi.responses import PlainTextResponse
 from pydantic import BaseModel
 
 import judge
 from rules import BLOCK_THRESHOLD, FLAG_THRESHOLD, Detection, scan
 
-app = FastAPI(title="Prompt-Injection Firewall")
+app = FastAPI(title="Airlock")
+
+_SKILL_MD = Path(__file__).with_name("SKILL.md")
 
 
 class ScanRequest(BaseModel):
@@ -23,6 +27,12 @@ class ScanRequest(BaseModel):
 @app.get("/health")
 def health():
     return {"status": "ok"}
+
+
+@app.get("/skill.md", response_class=PlainTextResponse)
+def skill_md():
+    """Serve the raw SKILL.md so the registry's reachability probe gets a 200."""
+    return _SKILL_MD.read_text(encoding="utf-8")
 
 
 @app.post("/scan")
