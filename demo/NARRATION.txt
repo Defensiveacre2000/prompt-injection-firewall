@@ -37,7 +37,12 @@ user stays safe.
 [BLOCK 6 — closing card] (~13s)
 That's the whole idea. One H.T.T.P. call is the difference between a hijacked
 agent and a safe one. Airlock is stateless, needs no key to try, and any agent
-can use it just by reading its skill file. Thanks for watching.
+can use it just by reading its skill file.
+
+[BLOCK 7 — over the autonomous / slowed-down note] (~10s)
+There's no human in this loop. In production, Airlock runs autonomously, agent
+to agent, before any action, and answers in milliseconds. This demo was slowed
+down just so you can read each step. Thanks for watching.
 
 ---
 Tips:
